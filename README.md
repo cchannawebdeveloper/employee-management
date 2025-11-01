@@ -22,6 +22,7 @@ A complete RESTful API for employee management built with Spring Boot 3.5.3, Jav
 - **Build Tool**: Gradle
 - **ORM**: Spring Data JPA (Hibernate)
 - **Validation**: Jakarta Bean Validation
+- **API Documentation**: Springdoc OpenAPI 3 (Swagger UI)
 - **Logging**: SLF4J + Logback
 
 ## Project Structure
@@ -31,7 +32,9 @@ employee-management/
 ├── src/main/java/com/example/employee/
 │   ├── EmployeeManagementApplication.java
 │   ├── config/
-│   │   └── CorsConfig.java
+│   │   ├── CorsConfig.java
+│   │   ├── FaviconConfiguration.java
+│   │   └── OpenApiConfig.java
 │   ├── controller/
 │   │   └── EmployeeController.java
 │   ├── dto/
@@ -50,7 +53,9 @@ employee-management/
 │   └── util/
 │       └── EmployeeMapper.java
 ├── src/main/resources/
-│   └── application.yml
+│   ├── application.yml
+│   └── static/
+│       └── favicon.ico (optional)
 ├── build.gradle
 └── README.md
 ```
@@ -109,6 +114,27 @@ java -jar build/libs/employee-management-0.0.1-SNAPSHOT.jar
 ```
 
 The application will start on `http://localhost:8080`
+
+## API Documentation
+
+### Swagger UI (Interactive Documentation)
+
+Once the application is running, access the interactive API documentation:
+
+**🌐 Swagger UI:** `http://localhost:8080/swagger-ui.html`
+
+Features:
+- Interactive API testing interface
+- Try out all endpoints directly from the browser
+- View request/response schemas
+- See example values for all fields
+- Download OpenAPI specification
+
+### OpenAPI Specification
+
+**📄 OpenAPI JSON:** `http://localhost:8080/api-docs`
+
+You can import this into Postman, Insomnia, or any OpenAPI-compatible tool.
 
 ## API Endpoints
 
@@ -249,10 +275,21 @@ Logs are configured in `application.yml`:
 ## Testing the Application
 
 You can use tools like:
+- **Swagger UI** (built-in) - `http://localhost:8080/swagger-ui.html` ⭐ **Recommended**
 - **cURL** (command line)
-- **Postman** (GUI)
+- **Postman** (GUI) - Import OpenAPI spec from `http://localhost:8080/api-docs`
 - **Thunder Client** (VS Code extension)
 - **HTTPie** (command line)
+
+### Using Swagger UI (Easiest Method)
+
+1. Start the application
+2. Open browser and go to: `http://localhost:8080/swagger-ui.html`
+3. Click on any endpoint to expand it
+4. Click "Try it out" button
+5. Fill in the parameters/request body
+6. Click "Execute"
+7. See the response immediately
 
 ## Troubleshooting
 
@@ -277,12 +314,19 @@ server:
   port: 8081
 ```
 
+### Favicon Warning
+
+If you see "No static resource favicon.ico" warning:
+1. The warning is already suppressed in logging configuration
+2. Optionally, add a favicon.ico file to `src/main/resources/static/` directory
+3. The FaviconConfiguration handles the mapping automatically
+
 ## Future Enhancements
 
+- [x] ~~API documentation with Swagger/OpenAPI~~ ✅ **Completed**
 - [ ] Pagination and sorting
 - [ ] Search and filtering
 - [ ] JWT authentication
-- [ ] API documentation with Swagger/OpenAPI
 - [ ] Unit and integration tests
 - [ ] Docker containerization
 - [ ] CI/CD pipeline

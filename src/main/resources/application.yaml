@@ -2,10 +2,17 @@ spring:
   application:
     name: employee-management
 
+  mvc:
+    log-resolved-exception: false
+
+  web:
+    resources:
+      add-mappings: true
+
   datasource:
     url: jdbc:postgresql://localhost:5432/employee_db
     username: postgres
-    password: Channa17
+    password: postgres
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -41,6 +48,22 @@ management:
   endpoint:
     health:
       show-details: when-authorized
+
+# Springdoc OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+    doc-expansion: none
+    display-request-duration: true
+    default-models-expand-depth: 1
+    default-model-expand-depth: 1
+  show-actuator: false
 
 logging:
   level:
