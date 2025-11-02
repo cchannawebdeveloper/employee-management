@@ -13,6 +13,8 @@ A complete RESTful API for employee management built with Spring Boot 3.5.3, Jav
 - ✅ Logging with SLF4J and Logback
 - ✅ Health check endpoints with Spring Boot Actuator
 - ✅ Database indexing for performance optimization
+- ✅ Swagger/OpenAPI documentation
+- ✅ Docker containerization with Docker Compose
 
 ## Technology Stack
 
@@ -54,10 +56,16 @@ employee-management/
 │       └── EmployeeMapper.java
 ├── src/main/resources/
 │   ├── application.yml
+│   ├── application-docker.yml
 │   └── static/
 │       └── favicon.ico (optional)
+├── Dockerfile
+├── docker-compose.yml
+├── .dockerignore
 ├── build.gradle
-└── README.md
+├── settings.gradle
+├── README.md
+└── DOCKER.md
 ```
 
 ## Prerequisites
@@ -87,7 +95,9 @@ spring:
 
 ## Running the Application
 
-### Using Gradle Wrapper (Recommended)
+### Method 1: Local Development
+
+#### Using Gradle Wrapper (Recommended)
 
 ```bash
 # On Linux/Mac
@@ -97,13 +107,13 @@ spring:
 gradlew.bat bootRun
 ```
 
-### Using Gradle Command
+#### Using Gradle Command
 
 ```bash
 gradle bootRun
 ```
 
-### Building and Running JAR
+#### Building and Running JAR
 
 ```bash
 # Build the application
@@ -112,6 +122,31 @@ gradle bootRun
 # Run the JAR file
 java -jar build/libs/employee-management-0.0.1-SNAPSHOT.jar
 ```
+
+### Method 2: Docker (Recommended for Production) 🐳
+
+#### Quick Start with Docker Compose
+```bash
+# Start all services (app + database)
+docker compose up -d
+
+# View logs
+docker compose logs -f
+
+# Stop all services
+docker compose down
+```
+
+#### Manual Docker Build
+```bash
+# Build the image
+docker build -t employee-management:latest .
+
+# Run with Docker
+docker run -p 8080:8080 employee-management:latest
+```
+
+**📖 For detailed Docker instructions, see [DOCKER.md](DOCKER.md)**
 
 The application will start on `http://localhost:8080`
 
@@ -321,15 +356,38 @@ If you see "No static resource favicon.ico" warning:
 2. Optionally, add a favicon.ico file to `src/main/resources/static/` directory
 3. The FaviconConfiguration handles the mapping automatically
 
+### Springdoc OpenAPI Version Issues
+
+If you encounter `NoSuchMethodError` with ControllerAdviceBean:
+1. Ensure you're using Springdoc OpenAPI version 2.7.0 or higher
+2. Clean and rebuild the project:
+```bash
+./gradlew clean build
+```
+3. If using an IDE, invalidate caches and restart
+
+### Gradle Dependency Issues
+
+If dependencies are not resolving:
+```bash
+# Refresh dependencies
+./gradlew --refresh-dependencies clean build
+
+# Or delete the Gradle cache
+rm -rf ~/.gradle/caches/
+./gradlew clean build
+```
+
 ## Future Enhancements
 
 - [x] ~~API documentation with Swagger/OpenAPI~~ ✅ **Completed**
+- [x] ~~Docker containerization~~ ✅ **Completed**
 - [ ] Pagination and sorting
 - [ ] Search and filtering
 - [ ] JWT authentication
 - [ ] Unit and integration tests
-- [ ] Docker containerization
 - [ ] CI/CD pipeline
+- [ ] Kubernetes deployment manifests
 
 ## License
 
