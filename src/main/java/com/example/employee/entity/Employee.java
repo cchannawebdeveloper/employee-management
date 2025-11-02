@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-//import org.hibernate.annotations.CreatedDate
-//import org.hibernate.annotations.UpdatedDate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
